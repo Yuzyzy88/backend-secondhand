@@ -1,8 +1,11 @@
-const Controller = require('../controllers/controller')
+const { UserController } = require('../controllers')
 
-function apply (app) {
-  app.route('/')
-    .get(Controller.handleIndex)
+function apply(app) {
+
+  const userController = new UserController()
+
+  app.post('/api/register', userController.create)
+  app.put('/api/update', userController.update)
 
   return app
 }
