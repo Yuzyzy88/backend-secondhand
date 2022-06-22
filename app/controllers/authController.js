@@ -1,7 +1,5 @@
 const admin = require("../../config/firebase-config")
 
-// TEST
-
 class AuthenticationController {
   authorize = async (req, res, next) => {
     try {
