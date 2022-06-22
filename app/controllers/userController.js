@@ -26,8 +26,8 @@ class UserController {
                 const id = req.body.uid
                 const userUid = await user.findOne({ where: { uid: req.body.uid } })
                 const userUID = userUid
-                console.log("user", id)
-                console.log("user2", userUID);
+                // console.log("user", id)
+                // console.log("user2", userUID);
                 if (!userUID) {
                     user.create({
                         uid: req.body.uid,
@@ -48,6 +48,23 @@ class UserController {
                 })
             }
         })
+    }
+
+    read = async (req, res) => {
+        try {
+            const data = await user.findOne({
+                where: {
+                    uid: req.user.uid
+                }
+            })
+            res.status(200).json(data)
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                test: "slkdjfs",
+                message: error
+            })
+        }
     }
 
     update = async (req, res) => {
