@@ -1,5 +1,5 @@
 const {
-    DB_USER = "postgres",
+    DB_USER = "archuser",
     DB_PASSWORD = "123",
     DB_NAME = "secondApp",
     DB_HOST = "127.0.0.1",
@@ -11,6 +11,7 @@ module.exports = {
       username: DB_USER,
       password: DB_PASSWORD,
       database: `${DB_NAME}_development`,
+      // database: 'secondApp_development',
       host: DB_HOST,
       port: DB_PORT,
       dialect: "postgres"
