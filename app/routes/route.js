@@ -8,7 +8,9 @@ function apply(app) {
   app.post('/api/register', userController.create)
   app.get('/api/profile', authController.authorize, userController.read)
   app.put('/api/profile', authController.authorize, userController.update)
-
+  
+  app.get('/api/product', authController.authorize)
+  app.post('/api/product', authController.authorize, authController.emptyProfileCheck)
   return app
 }
 

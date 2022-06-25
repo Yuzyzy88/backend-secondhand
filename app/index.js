@@ -9,5 +9,6 @@ const { MORGAN_FORMAT } = require('../config/application')
 app.use(express.json())
 app.use(morgan(MORGAN_FORMAT))
 app.use(cors())
+app.options('*', cors()) 
 
 module.exports = router.apply(app)
