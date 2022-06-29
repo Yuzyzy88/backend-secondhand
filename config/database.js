@@ -1,6 +1,6 @@
 const {
-    DB_USER = "archuser",
-    DB_PASSWORD = "123",
+    DB_USER = "postgres",
+    DB_PASSWORD = "ilyas123a",
     DB_NAME = "secondApp",
     DB_HOST = "127.0.0.1",
     DB_PORT = "5432",
