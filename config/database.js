@@ -10,7 +10,6 @@ module.exports = {
     dialect: "postgres",
     dialectOptions: {
     },
-
   },
   test: {
     username: process.env.DB_USER,
@@ -21,7 +20,6 @@ module.exports = {
     dialect: "postgres",
     dialectOptions: {
     },
-
   },
   production: {
     username: process.env.DB_USER,

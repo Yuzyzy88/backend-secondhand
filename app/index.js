@@ -7,6 +7,7 @@ const app = express()
 const { MORGAN_FORMAT } = require('../config/application')
 
 app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 app.use(morgan(MORGAN_FORMAT))
 app.use(cors())
 app.options('*', cors()) 
