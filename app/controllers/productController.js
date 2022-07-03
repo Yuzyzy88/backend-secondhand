@@ -25,8 +25,8 @@ class ProductController {
             }
             try {
                 product.create({
+                    id: req.body.id,
                     uid: req.body.uid,
-                    pid: req.body.pid,
                     name: req.body.name,
                     price: req.body.price,
                     category: req.body.category,
@@ -35,57 +35,59 @@ class ProductController {
                 })
                 res.status(200).json("success")
             } catch (error) {
+                res.status(400).json({
+                    success: false,
+                    message: error
+                })
+            }
+        })
+    }
+
+    list = async (req, res) => {
+        try {
+            const data = await product.findAll()
+            return res.status(200).json({
+                success: true,
+                error: false,
+                data: data,
+                message: " Data successfully populated"
+            })
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                test: "slkdjfs",
+                message: error
+            })
+        }
+    }
+
+    update = async (req, res) => {
+
+        try {
+            let upload = multer({ storage: storage, fileFilter: imageFilter }).single('image')
+            upload(req, res, async (err) => {
+                await product.findOne({ where: { id: req.params.id } }).then(User => {
+                    User.update({
+                        uid: req.body.uid,
+                        name: req.body.name,
+                        price: req.body.price,
+                        category: req.body.category,
+                        description: req.body.description,
+                        image: req.file ? req.file.originalname : "",
+                    })
+                })
+                res.status(200).json({
+                    success: true,
+                    message: " Product successfully update"
+                })
+            })
+        } catch (error) {
             res.status(400).json({
                 success: false,
                 message: error
             })
         }
-    })
-}
-
-read = async (req, res) => {
-    try {
-        const data = await product.findOne({
-            where: {
-                pid: req.product.pid
-            }
-        })
-        res.status(200).json(data)
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            test: "slkdjfs",
-            message: error
-        })
     }
-}
-
-    // update = async (req, res) => {
-
-    //     try {
-    //         let upload = multer({ storage: storage, fileFilter: imageFilter }).single('image')
-    //         upload(req, res, async (err) => {
-    //             await product.findOne({ where: { pid: req.body.pid } }).then(User => {
-    //                 User.update({
-    //                     name: req.body.name,
-    //                     price: req.body.price,
-    //                     category: req.body.category,
-    //                     descript: req.body.descript,
-    //                     image: req.file ? req.file.originalname : "",
-    //                 })
-    //             })
-    //             res.status(200).json({
-    //                 success: true,
-    //                 message: " Product successfully update"
-    //             })
-    //         })
-    //     } catch (error) {
-    //         res.status(400).json({
-    //             success: false,
-    //             message: error
-    //         })
-    //     }
-    // }
 
 }
 
