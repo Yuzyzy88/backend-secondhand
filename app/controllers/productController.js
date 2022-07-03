@@ -31,7 +31,7 @@ class ProductController {
                     price: req.body.price,
                     category: req.body.category,
                     description: req.body.description,
-                    image: req.file ? req.file.originalname : "",
+                    images: req.body.images,
                 })
                 res.status(200).json("success")
             } catch (error) {

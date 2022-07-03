@@ -21,10 +21,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
-      image: {
-        type: Sequelize.STRING
+      images: {
+        type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.TEXT)
       },
       createdAt: {
         allowNull: false,
