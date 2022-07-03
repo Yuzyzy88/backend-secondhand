@@ -7,10 +7,10 @@ function apply(app) {
 
   app.post('/api/register', userController.create)
   app.get('/api/profile', authController.authorize, userController.read)
-  app.put('/api/profile', authController.authorize, userController.update)
+  app.patch('/api/profile', authController.authorize, userController.update)
   app.post('/api/product', productController.create)
-  app.get('/api/product', productController.read)
-  // app.put('/api/product', productController.update)
+  app.get('/api/product', productController.list)
+  app.patch('/api/product/:id', productController.update)
   return app
 }
 
