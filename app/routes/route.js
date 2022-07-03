@@ -9,9 +9,9 @@ function apply(app) {
   app.post('/api/register', userController.create)
   app.get('/api/profile', authController.authorize, userController.read)
   app.put('/api/profile', authController.authorize, userController.update)
-  app.post('/api/upload', productController.create)
-  app.get('/api/update', productController.read)
-  app.put('/api/update', productController.update)
+  app.post('/api/product', productController.create)
+  app.get('/api/product', productController.read)
+  // app.put('/api/product', productController.update)
   return app
 }
 

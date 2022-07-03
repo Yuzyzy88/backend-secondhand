@@ -1,4 +1,5 @@
 const multer = require('multer')
+const { user } = require('../models')
 const { product } = require('../models')
 const { imageFilter } = require('../../helpers')
 
@@ -23,76 +24,68 @@ class ProductController {
                 console.log(err);
             }
             try {
-                const id = req.body.pid
-                const productid = await product.findOne({ where: { uid: req.body.pid } })
-                const productID = productid
-                // console.log("user", id)
-                // console.log("user2", userUID);
-                if (!productID) {
-                    product.create({
-                        pid: req.body.pid,
-                        name: req.body.name,
-                        price: req.body.price,
-                        category: req.body.category,
-                        descript: req.body.descript,
-                        image: req.file ? req.file.originalname : "",
-                    })
-                    res.status(200).json("success")
-                } else if (productID.uid == id) {
-                    res.status(200).json("success")
-                }
-            } catch (error) {
-                res.status(400).json({
-                    success: false,
-                    message: error
+                product.create({
+                    uid: req.body.uid,
+                    pid: req.body.pid,
+                    name: req.body.name,
+                    price: req.body.price,
+                    category: req.body.category,
+                    description: req.body.description,
+                    image: req.file ? req.file.originalname : "",
                 })
+                res.status(200).json("success")
+            } catch (error) {
+            res.status(400).json({
+                success: false,
+                message: error
+            })
+        }
+    })
+}
+
+read = async (req, res) => {
+    try {
+        const data = await product.findOne({
+            where: {
+                pid: req.product.pid
             }
         })
+        res.status(200).json(data)
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            test: "slkdjfs",
+            message: error
+        })
     }
+}
 
-    read = async (req, res) => {
-        try {
-            const data = await product.findOne({
-                where: {
-                    pid: req.product.pid
-                }
-            })
-            res.status(200).json(data)
-        } catch (error) {
-            res.status(400).json({
-                success: false,
-                test: "slkdjfs",
-                message: error
-            })
-        }
-    }
+    // update = async (req, res) => {
 
-    update = async (req, res) => {
-
-        try {
-            let upload = multer({ storage: storage, fileFilter: imageFilter }).single('image')
-            upload(req, res, async (err) => {
-                await product.findOne({ where: { pid: req.body.pid } }).then(User => {
-                    User.update({
-                        name: req.body.name,
-                        price: req.body.price,
-                        category: req.body.category,
-                        descript: req.body.descript,
-                        image: req.file ? req.file.originalname : "",
-                    })
-                })
-                res.status(200).json({
-                    success: true,
-                    message: " Product successfully update"
-                })
-            })
-        } catch (error) {
-            res.status(400).json({
-                success: false,
-                message: error
-            })
-        }
-    }
+    //     try {
+    //         let upload = multer({ storage: storage, fileFilter: imageFilter }).single('image')
+    //         upload(req, res, async (err) => {
+    //             await product.findOne({ where: { pid: req.body.pid } }).then(User => {
+    //                 User.update({
+    //                     name: req.body.name,
+    //                     price: req.body.price,
+    //                     category: req.body.category,
+    //                     descript: req.body.descript,
+    //                     image: req.file ? req.file.originalname : "",
+    //                 })
+    //             })
+    //             res.status(200).json({
+    //                 success: true,
+    //                 message: " Product successfully update"
+    //             })
+    //         })
+    //     } catch (error) {
+    //         res.status(400).json({
+    //             success: false,
+    //             message: error
+    //         })
+    //     }
+    // }
 
 }
 
