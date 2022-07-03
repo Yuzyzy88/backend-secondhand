@@ -8,9 +8,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      pid: {
+      uid: {
         type: Sequelize.STRING,
-        primaryKey: true
       },
       name: {
         type: Sequelize.STRING
@@ -26,12 +25,6 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING
-      },
-      create: {
-        type: Sequelize.DATE
-      },
-      update: {
-        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
