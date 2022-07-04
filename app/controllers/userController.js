@@ -33,7 +33,8 @@ class UserController {
                         city: req.body.city,
                         address: req.body.address,
                         phone: req.body.phone,
-                        image: req.file ? req.file.originalname : "",
+                        image: req.body.image
+                        // image: req.file ? req.file.originalname : "",
                     })
                     res.status(200).json("success")
                 } else if (userUID.uid == id) {
@@ -74,7 +75,8 @@ class UserController {
                         city: req.body.city,
                         address: req.body.address,
                         phone: req.body.phone,
-                        image: req.file ? req.file.originalname : "",
+                        image: req.body.image
+                        // image: req.file ? req.file.originalname : "",
                     })
                 })
                 res.status(200).json({
