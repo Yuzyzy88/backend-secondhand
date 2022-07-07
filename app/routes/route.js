@@ -8,9 +8,11 @@ function apply(app) {
   app.post('/api/register', userController.create)
   app.get('/api/profile', authController.authorize, userController.read)
   app.patch('/api/profile', authController.authorize, userController.update)
+  
   app.post('/api/product', productController.create)
   app.get('/api/product', productController.list)
-  app.patch('/api/product/:id', productController.update)
+  app.get('/api/product/:uid', productController.listByID)
+  app.patch('/api/produc${getUserDatabase().id}t/update/:id', productController.update)
   return app
 }
 
