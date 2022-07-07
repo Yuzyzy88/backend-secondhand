@@ -76,6 +76,21 @@ class ProductController {
             })
         }
     }
+    listByUID = async (req, res) => {
+        try {
+            const data = await product.findAll({
+                where: {
+                    uid: req.params.uid
+                }
+            })
+            res.status(200).json(data)
+        } catch (err) {
+            res.status(400).json({
+                success: false,
+                message: err
+            })
+        }
+    }
 
     update = async (req, res) => {
         try {
