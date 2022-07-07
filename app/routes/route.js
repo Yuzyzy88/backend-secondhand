@@ -11,10 +11,10 @@ function apply(app) {
   
   app.post('/api/product', productController.create)
   app.get('/api/product', productController.list)
+  app.get('/api/product/byProfile/:uid', productController.listByUID)
   app.get('/api/product/:id', productController.getById)
   app.patch('/api/product/:id', productController.update)
   
-  app.get('/api/product/:uid', productController.listByUID)
 
   return app
 }

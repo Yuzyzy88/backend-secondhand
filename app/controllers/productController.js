@@ -77,6 +77,7 @@ class ProductController {
         }
     }
     listByUID = async (req, res) => {
+        console.log(req.params);
         try {
             const data = await product.findAll({
                 where: {
