@@ -61,7 +61,7 @@ class ProductController {
         }
     }
 
-    listByID = async (req, res) => {
+    listByUID = async (req, res) => {
         console.log(req.params)
         try {
             const data = await product.findAll({
@@ -77,6 +77,12 @@ class ProductController {
             })
         }
     }
+
+    // PUNYA AYU DI SINI
+    listByID = async (req, res) => {
+        
+    }
+    
 
     update = async (req, res) => {
 
