@@ -2,6 +2,7 @@ const multer = require('multer')
 const { user } = require('../models')
 const { product } = require('../models')
 const { imageFilter } = require('../../helpers')
+const { Op } = require("sequelize")
 
 // define the local storage location for our images
 const storage = multer.diskStorage({
@@ -96,7 +97,7 @@ class ProductController {
     update = async (req, res) => {
         try {
             const _product = await product.findOne({ where: { id: req.params.id } })
-            
+
             await _product.update({
                 name: req.body.name,
                 price: req.body.price,
@@ -109,6 +110,30 @@ class ProductController {
                 success: true,
                 message: " Product successfully update"
             })
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                message: error
+            })
+        }
+    }
+
+    search = async (req, res) => {
+        try {
+            if(req.body.search !== undefined){
+                const _products = await product.findAll( {
+                    where: {
+                        name: {
+                          [Op.like]: `%${req.body.search}%`
+                        }
+                      },
+                      paranoid: false    
+                })
+                res.json(_products)
+            }
+            else {
+                res.json([])
+            }
         } catch (error) {
             res.status(400).json({
                 success: false,
