@@ -61,8 +61,23 @@ class ProductController {
         }
     }
 
+    getById = async (req, res) => {
+        try {
+            const data = await product.findOne({
+                where: {
+                    id: req.params.id
+                }
+            })
+            res.status(200).json(data)
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                message: error
+            })
+        }
+    }
     listByUID = async (req, res) => {
-        console.log(req.params)
+        console.log(req.params);
         try {
             const data = await product.findAll({
                 where: {
@@ -85,24 +100,20 @@ class ProductController {
     
 
     update = async (req, res) => {
-
         try {
-            let upload = multer({ storage: storage, fileFilter: imageFilter }).single('image')
-            upload(req, res, async (err) => {
-                await product.findOne({ where: { id: req.params.id } }).then(User => {
-                    User.update({
-                        uid: req.body.uid,
-                        name: req.body.name,
-                        price: req.body.price,
-                        category: req.body.category,
-                        description: req.body.description,
-                        image: req.file ? req.file.originalname : "",
-                    })
-                })
-                res.status(200).json({
-                    success: true,
-                    message: " Product successfully update"
-                })
+            const _product = await product.findOne({ where: { id: req.params.id } })
+            
+            await _product.update({
+                name: req.body.name,
+                price: req.body.price,
+                category: req.body.category,
+                description: req.body.description,
+                images: req.body.images,
+            })
+
+            res.status(200).json({
+                success: true,
+                message: " Product successfully update"
             })
         } catch (error) {
             res.status(400).json({
