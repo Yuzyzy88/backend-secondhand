@@ -14,8 +14,8 @@ function apply(app) {
   app.get('/api/product/byProfile/:uid', productController.listByUID)
   app.get('/api/product/:id', productController.getById)
   app.patch('/api/product/:id', productController.update)
-  
 
+  
   return app
 }
 

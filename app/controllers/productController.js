@@ -92,13 +92,7 @@ class ProductController {
             })
         }
     }
-
-    // PUNYA AYU DI SINI
-    listByID = async (req, res) => {
-        
-    }
     
-
     update = async (req, res) => {
         try {
             const _product = await product.findOne({ where: { id: req.params.id } })
