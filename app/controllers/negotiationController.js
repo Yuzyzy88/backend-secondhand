@@ -2,8 +2,6 @@ const { user, product, negotiation } = require('../models');
 
 class NegotiationController {
   create = (req, res) => {
-    console.log(req.body);
-
     try {
       negotiation.create({
         buyer_uid: req.body.buyer_uid,
@@ -17,6 +15,24 @@ class NegotiationController {
         success: false,
         message: err
       })
+    }
+  }
+
+  read = async (req, res) => {
+    console.log(req.headers.uid);
+
+    try {
+      const data = await negotiation.findAll({
+        where: {
+          seller_uid: req.headers.uid
+        }
+      })
+      res.status(200).json(data)
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        message: err
+    })
     }
   }
 }

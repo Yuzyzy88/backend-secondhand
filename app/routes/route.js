@@ -17,6 +17,7 @@ function apply(app) {
   app.patch('/api/product/:id', productController.update)
 
   app.post('/api/negotiation', negotiationController.create)
+  app.get('/api/negotiation', negotiationController.read)
 
   return app
 }

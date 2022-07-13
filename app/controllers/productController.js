@@ -46,6 +46,10 @@ class ProductController {
 
     list = async (req, res) => {
         try {
+            if (req.headers.productid) {
+                console.log('ehh bener?')
+            }
+            
             const data = await product.findAll()
             return res.status(200).json({
                 success: true,
