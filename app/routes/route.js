@@ -1,10 +1,11 @@
-const { UserController, AuthenticationController, ProductController } = require('../controllers')
+const { UserController, AuthenticationController, ProductController, NegotiationController } = require('../controllers')
 
 function apply(app) {
   const userController = new UserController()
   const authController = new AuthenticationController()
   const productController = new ProductController()
-
+  const negotiationController = new NegotiationController()
+  
   app.post('/api/register', userController.create)
   app.get('/api/profile', authController.authorize, userController.read)
   app.patch('/api/profile', authController.authorize, userController.update)
@@ -16,6 +17,8 @@ function apply(app) {
   app.get('/api/product/:id', authController.authorize, productController.getById)
   app.patch('/api/product/:id', authController.authorize, productController.update)
   
+  app.post('/api/negotiation', negotiationController.create)
+  app.get('/api/negotiation', negotiationController.read)
 
   return app
 }

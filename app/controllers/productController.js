@@ -32,6 +32,7 @@ class ProductController {
                     price: req.body.price,
                     category: req.body.category,
                     description: req.body.description,
+                    isAvailable: true,
                     images: req.body.images,
                 })
                 res.status(200).json("success")
@@ -46,6 +47,10 @@ class ProductController {
 
     list = async (req, res) => {
         try {
+            if (req.headers.productid) {
+                console.log('ehh bener?')
+            }
+            
             const data = await product.findAll()
             return res.status(200).json({
                 success: true,
@@ -93,7 +98,7 @@ class ProductController {
             })
         }
     }
-
+    
     update = async (req, res) => {
         try {
             const _product = await product.findOne({ where: { id: req.params.id } })

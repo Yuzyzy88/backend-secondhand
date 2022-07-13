@@ -51,17 +51,34 @@ class UserController {
 
     read = async (req, res) => {
         try {
-            const data = await user.findOne({
-                where: {
-                    uid: req.user.uid
-                }
-            })
-            res.status(200).json(data)
+            if (req.headers.product) {
+                const data = await user.findOne({
+                    where: {
+                        uid: req.headers.product
+                    }
+                })
+                res.status(200).json(data)
+            } else {
+                const data = await user.findOne({
+                    where: {
+                        uid: req.user.uid
+                    }
+                })
+                res.status(200).json(data)
+            }
         } catch (error) {
             res.status(400).json({
                 success: false,
                 message: error
             })
+        }
+    }
+
+    readByUID = async (req, res) => {
+        try {
+            
+        } catch (err) {
+
         }
     }
 
