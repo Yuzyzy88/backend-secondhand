@@ -20,6 +20,9 @@ module.exports = {
       price: {
         type: Sequelize.TEXT
       },
+      isApproved: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -7,7 +7,8 @@ class NegotiationController {
         buyer_uid: req.body.buyer_uid,
         seller_uid: req.body.seller_uid,
         product_id: req.body.product_uid,
-        price: req.body.price
+        price: req.body.price,
+        isApproved: 1
       })
       res.status(200).json("Success")
     } catch (err) {
@@ -20,13 +21,18 @@ class NegotiationController {
 
   read = async (req, res) => {
     console.log(req.headers.uid);
+    let data;
 
     try {
-      const data = await negotiation.findAll({
-        where: {
-          seller_uid: req.headers.uid
-        }
-      })
+      if (req.headers.uid) {
+        data = await negotiation.findAll({
+          where: {
+            seller_uid: req.headers.uid
+          }
+        })
+      } else {
+        data = await negotiation.findAll();
+      }
       res.status(200).json(data)
     } catch (err) {
       res.status(400).json({
