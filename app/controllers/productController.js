@@ -146,7 +146,23 @@ class ProductController {
             })
         }
     }
-
+    
+    delete = async (req, res) => {
+        try {
+            const _product = await product.destroy({where:{id:req.params.id}})
+            res.status(200).json({
+                success: true,
+                data: _product,
+                message: " Product successfully delete"
+            })
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({
+                success: false,
+                message: error
+            })
+        }
+    }
 }
 
 module.exports = ProductController
