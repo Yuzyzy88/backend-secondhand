@@ -20,7 +20,7 @@ class NegotiationController {
   }
 
   read = async (req, res) => {
-    console.log(req.headers.uid);
+    console.log(req.headers.productid)
     let data;
 
     try {
@@ -30,10 +30,42 @@ class NegotiationController {
             seller_uid: req.headers.uid
           }
         })
+      } else if (req.headers.productid) {
+        data = await negotiation.findAll({
+          where: {
+            product_id: req.headers.productid
+          }
+        })
       } else {
         data = await negotiation.findAll();
       }
       res.status(200).json(data)
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        message: err
+    })
+    }
+  }
+
+  update = async (req, res) => {
+    console.log(req.body)
+    console.log(req.body)
+    try {
+      const data = await negotiation.findOne({
+        where: {
+          id: req.body.id
+        }
+      })
+
+      data.update({
+        isApproved: req.body.isApproved
+      })
+
+      res.status(200).json({
+        success: true,
+        message: "Negotiation Updated Successfully"
+      })
     } catch (err) {
       res.status(400).json({
         success: false,

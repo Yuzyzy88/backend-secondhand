@@ -19,6 +19,7 @@ function apply(app) {
   
   app.post('/api/negotiation', negotiationController.create)
   app.get('/api/negotiation', negotiationController.read)
+  app.patch('/api/negotiation/', negotiationController.update)
 
   return app
 }

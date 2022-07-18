@@ -74,14 +74,6 @@ class UserController {
         }
     }
 
-    readByUID = async (req, res) => {
-        try {
-            
-        } catch (err) {
-
-        }
-    }
-
     update = async (req, res) => {
         try {
             let upload = multer({ storage: storage, fileFilter: imageFilter }).single('image')
