@@ -92,9 +92,24 @@ class ProductController {
 
             res.status(200).json({
                 success: true,
-                message: " Product successfully update"
+                message: "Product successfully updated"
             })
         } catch (error) {
+            res.status(400).json({
+                success: false,
+                message: error
+            })
+        }
+    }
+
+    updateStatus = async (req, res) => {
+        console.log(req.body)
+        try {
+            const data = await product.findOne({ where: {id : req.body.id }})
+            await data.update({
+                isAvailable: req.body.isAvailable
+            })
+        } catch (err) {
             res.status(400).json({
                 success: false,
                 message: error

@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     buyer_uid: DataTypes.TEXT,
     seller_uid: DataTypes.TEXT,
     product_id: DataTypes.TEXT,
-    price: DataTypes.TEXT
+    price: DataTypes.TEXT,
+    isApproved: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'negotiation',
