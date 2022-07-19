@@ -16,6 +16,7 @@ function apply(app) {
   app.post('/api/product/search', productController.search)
   app.get('/api/product/:id', productController.getById)
   app.patch('/api/product/:id', authController.authorize, productController.update)
+  app.delete('/api/product/:id', productController.delete)
   app.patch('/api/product/', authController.authorize, productController.updateStatus)
   
   app.post('/api/negotiation', negotiationController.create)
