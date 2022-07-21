@@ -1,33 +1,27 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('products', {
+    await queryInterface.createTable('negotiations', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      uid: {
-        type: Sequelize.STRING,
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      price: {
-        type: Sequelize.STRING
-      },
-      category: {
-        type: Sequelize.STRING
-      },
-      description: {
+      buyer_uid: {
         type: Sequelize.TEXT
       },
-      isAvailable: {
-        type: Sequelize.BOOLEAN
+      seller_uid: {
+        type: Sequelize.TEXT
       },
-      images: {
-        type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.TEXT)
+      product_id: {
+        type: Sequelize.TEXT
+      },
+      price: {
+        type: Sequelize.TEXT
+      },
+      isApproved: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('products');
+    await queryInterface.dropTable('negotiations');
   }
 };

@@ -1,28 +1,8 @@
-const multer = require('multer')
-const { user } = require('../models')
 const { product } = require('../models')
-const { imageFilter } = require('../../helpers')
-
-// define the local storage location for our images
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, __dirname + '../../../public/images/')
-    },
-    // by default, multer removes file extensions and now add them back
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
-const upload = multer({ storage: storage, fileFilter: imageFilter }).single('image');
-
+const { Op } = require("sequelize")
 class ProductController {
     create = async (req, res) => {
-        upload(req, res, async function (err) {
-            if (err instanceof multer.MulterError) {
-                console.log(err)
-            } else if (err) {
-                console.log(err);
-            }
+      
             try {
                 product.create({
                     id: req.body.id,
@@ -31,6 +11,7 @@ class ProductController {
                     price: req.body.price,
                     category: req.body.category,
                     description: req.body.description,
+                    isAvailable: true,
                     images: req.body.images,
                 })
                 res.status(200).json("success")
@@ -40,11 +21,15 @@ class ProductController {
                     message: error
                 })
             }
-        })
+        
     }
 
     list = async (req, res) => {
         try {
+            if (req.headers.productid) {
+                console.log('ehh bener?')
+            }
+            
             const data = await product.findAll()
             return res.status(200).json({
                 success: true,
@@ -92,11 +77,11 @@ class ProductController {
             })
         }
     }
-
+    
     update = async (req, res) => {
         try {
             const _product = await product.findOne({ where: { id: req.params.id } })
-            
+
             await _product.update({
                 name: req.body.name,
                 price: req.body.price,
@@ -107,7 +92,7 @@ class ProductController {
 
             res.status(200).json({
                 success: true,
-                message: " Product successfully update"
+                message: "Product successfully updated"
             })
         } catch (error) {
             res.status(400).json({
@@ -117,6 +102,61 @@ class ProductController {
         }
     }
 
+    updateStatus = async (req, res) => {
+        console.log(req.body)
+        try {
+            const data = await product.findOne({ where: {id : req.body.id }})
+            await data.update({
+                isAvailable: req.body.isAvailable
+            })
+        } catch (err) {
+            res.status(400).json({
+                success: false,
+                message: err
+            })
+        }
+    }
+
+    search = async (req, res) => {
+        try {
+            if(req.body.search !== undefined){
+                const _products = await product.findAll( {
+                    where: {
+                        name: {
+                          [Op.like]: `%${req.body.search}%`
+                        }
+                      },
+                      paranoid: false    
+                })
+                res.json(_products)
+            }
+            else {
+                res.json([])
+            }
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                message: error
+            })
+        }
+    }
+    
+    delete = async (req, res) => {
+        try {
+            const _product = await product.destroy({where:{id:req.params.id}})
+            res.status(200).json({
+                success: true,
+                data: _product,
+                message: " Product successfully delete"
+            })
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({
+                success: false,
+                message: error
+            })
+        }
+    }
 }
 
 module.exports = ProductController
