@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     toId: DataTypes.STRING,
     readStatus: DataTypes.BOOLEAN,
     date: DataTypes.DATE,
-    message: DataTypes.STRING
+    message: DataTypes.STRING,
+    subhead: DataTypes.STRING,
+    imgurl: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'notification',

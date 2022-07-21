@@ -23,6 +23,12 @@ module.exports = {
       message: {
         type: Sequelize.STRING
       },
+      subhead: {
+        type: Sequelize.STRING
+      },
+      imgurl: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

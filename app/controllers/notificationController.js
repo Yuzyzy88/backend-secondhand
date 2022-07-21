@@ -10,6 +10,8 @@ class NotificationController {
                 readStatus: false,
                 date: new Date(req.body.date),
                 message: req.body.message,
+                subhead: req.body.subhead,
+                imgurl: req.body.imgurl
             })
             res.status(200).json(not)
             
