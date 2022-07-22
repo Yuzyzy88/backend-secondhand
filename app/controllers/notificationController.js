@@ -9,8 +9,8 @@ class NotificationController {
                 toId: req.body.toId,
                 readStatus: false,
                 date: new Date(req.body.date),
-                message: req.body.message,
-                subhead: req.body.subhead,
+                productName: req.body.productName,
+                productPrice: req.body.productPrice,
                 imgurl: req.body.imgurl
             })
             res.status(200).json(not)

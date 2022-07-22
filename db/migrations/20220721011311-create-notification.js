@@ -20,10 +20,10 @@ module.exports = {
       date: {
         type: Sequelize.DATE
       },
-      message: {
+      productName: {
         type: Sequelize.STRING
       },
-      subhead: {
+      productPrice: {
         type: Sequelize.STRING
       },
       imgurl: {

@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     toId: DataTypes.STRING,
     readStatus: DataTypes.BOOLEAN,
     date: DataTypes.DATE,
-    message: DataTypes.STRING,
-    subhead: DataTypes.STRING,
+    productName: DataTypes.STRING,
+    productPrice: DataTypes.STRING,
     imgurl: DataTypes.STRING
   }, {
     sequelize,
