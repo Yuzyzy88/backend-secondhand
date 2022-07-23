@@ -11,6 +11,7 @@ class NotificationController {
                 date: new Date(req.body.date),
                 productName: req.body.productName,
                 productPrice: req.body.productPrice,
+                negotiatePrice: req.body.negotiatePrice,
                 imgurl: req.body.imgurl
             })
             res.status(200).json(not)
