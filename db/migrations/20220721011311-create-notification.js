@@ -26,6 +26,9 @@ module.exports = {
       productPrice: {
         type: Sequelize.STRING
       },
+      negotiatePrice: {
+        type: Sequelize.STRING
+      },
       imgurl: {
         type: Sequelize.STRING
       },

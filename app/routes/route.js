@@ -26,6 +26,8 @@ function apply(app) {
 
   app.post('/api/notification', authController.authorize, notificationController.create)
   app.get('/api/notification',  authController.authorize, notificationController.getData)
+  app.get('/api/notification/:id',  authController.authorize, notificationController.getDatabyId)
+  app.patch('/api/notification/:id',  authController.authorize, notificationController.update)
 
   return app
 }
