@@ -1,10 +1,11 @@
-const { UserController, AuthenticationController, ProductController, NegotiationController } = require('../controllers')
+const { UserController, AuthenticationController, ProductController, NegotiationController, NotificationController } = require('../controllers')
 
 function apply(app) {
   const userController = new UserController()
   const authController = new AuthenticationController()
   const productController = new ProductController()
   const negotiationController = new NegotiationController()
+  const notificationController = new NotificationController() 
   
   app.post('/api/register', userController.create)
   app.get('/api/profile', authController.authorize, userController.read)
@@ -22,6 +23,11 @@ function apply(app) {
   app.post('/api/negotiation', negotiationController.create)
   app.get('/api/negotiation', negotiationController.read)
   app.patch('/api/negotiation/', negotiationController.update)
+
+  app.post('/api/notification', authController.authorize, notificationController.create)
+  app.get('/api/notification',  authController.authorize, notificationController.getData)
+  app.get('/api/notification/:id',  authController.authorize, notificationController.getDatabyId)
+  app.patch('/api/notification/:id',  authController.authorize, notificationController.update)
 
   return app
 }
