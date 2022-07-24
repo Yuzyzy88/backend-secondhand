@@ -24,28 +24,6 @@ class NotificationController {
         }
     }
 
-    delete = async (req, res) => {
-        try {
-            const _product = await notification.destroy({
-                where:{
-                    id:req.params.id,
-                    toId: req.user.uid
-                }
-            })
-            res.status(200).json({
-                success: true,
-                data: _product,
-                message: " Product successfully delete"
-            })
-        } catch (error) {
-            console.log(error);
-            res.status(400).json({
-                success: false,
-                message: error
-            })
-        }
-    }
-
     getData = async (req, res) => {
         try{
             const data = await notification.findAll({
@@ -62,6 +40,44 @@ class NotificationController {
         }
     }
 
+    getDatabyId = async (req, res) => {
+        try{
+            const data = await notification.findOne({
+                where: {
+                    id: req.params.id
+                }
+            })
+            res.status(200).json(data)
+        } catch(error) {
+            res.status(400).json({
+                success: false,
+                message: error
+            })
+        }
+    }
+
+    update = async (req, res) => {
+        console.log(req.body)
+        console.log(req.body)
+        try {
+          const data = await notification.findOne({
+            where: {
+              id: req.params.id
+            }
+          })
+    
+          const update = await data.update({
+            readStatus: req.body.readStatus
+          })
+    
+          res.status(200).json(update)
+        } catch (err) {
+          res.status(400).json({
+            success: false,
+            message: err
+        })
+        }
+      }
 }
 
 module.exports = NotificationController 
